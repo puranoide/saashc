@@ -4,6 +4,7 @@ session_start();
 
 if (!isset($_SESSION['idS'])) {
     header("Location: ../index.php");
+    
 }
 
 
@@ -11,6 +12,7 @@ $dni = isset($_GET['dni']) ? $_GET['dni'] : null;
 
 
 if ($dni == null) :
+    print_r($_SESSION);
 ?>
     <!DOCTYPE html>
     <html lang="en">
