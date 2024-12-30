@@ -37,6 +37,21 @@ DEFAULT CHARSET=utf8mb4
 COLLATE=utf8mb4_general_ci;
 
 
+ALTER TABLE saashm.paciente CHANGE `nombre y apellido` nombreyapellido varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL;
+
+
+CREATE TABLE saashm.historia (
+	id INT auto_increment NOT NULL,
+	antecedente TEXT NOT NULL,
+	receta TEXT NOT NULL,
+	dateCreated DATE NOT NULL,
+	idPaciente INT NOT NULL,
+	CONSTRAINT historia_pk PRIMARY KEY (id),
+	CONSTRAINT historia_paciente_FK FOREIGN KEY (idPaciente) REFERENCES saashm.paciente(id)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_general_ci;
 
 
 */

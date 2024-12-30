@@ -4,15 +4,15 @@ session_start();
 
 if (!isset($_SESSION['idS'])) {
     header("Location: ../index.php");
-    
 }
 
 
 $dni = isset($_GET['dni']) ? $_GET['dni'] : null;
-
+$message = isset($_GET['messaje']) ? $_GET['messaje'] : null;
 
 if ($dni == null) :
     print_r($_SESSION);
+
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -25,6 +25,14 @@ if ($dni == null) :
     </head>
 
     <body>
+
+        <!--mensaje-->
+
+        <?php if ($message != null) : ?>
+            <div class="alert alert-info w-50 mx-auto" role="alert">
+                <?= $message ?>
+            </div>
+        <?php endif; ?>
 
         <h1 class="text-center mt-5"> buscar paciente</h1>
 
@@ -79,6 +87,7 @@ elseif ($dni != null) :
         }
     }
 
+    
     $paciente = buscarPaciente($con, $dni);
 
     if (is_array($paciente)):
@@ -112,7 +121,7 @@ elseif ($dni != null) :
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label">Nombre</label>
-                                    <input type="text" name="nombre" class="form-control" id="exampleInputPassword1" value="<?= $paciente['nombre y apellido'] ?>" readonly>
+                                    <input type="text" name="nombre" class="form-control" id="exampleInputPassword1" value="<?= $paciente['nombreyapellido'] ?>" readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label">Email</label>
@@ -125,6 +134,9 @@ elseif ($dni != null) :
 
                 <div class="text-center">
                     <button class="btn btn-primary mt-3" id="agregar" onclick="window.location.href='managementHistoria.php?dni=<?= $paciente['dni'] ?>' ">agregar historia</button>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary mt-3" id="agregar" onclick="window.location.href='managementPaciente.php?dni=<?= $paciente['dni'] ?>&action=update' ">Actualizar cliente</button>
                 </div>
 
 
@@ -170,7 +182,7 @@ elseif ($dni != null) :
                 </div>
 
                 <div class="text-center">
-                    <button class="btn btn-primary mt-3" id="agregar" onclick="window.location.href='managementHistoria.php?dni=<?= $_GET['dni'] ?>' ">agregar historia</button>
+                    <button class="btn btn-primary mt-3" id="agregar" onclick="window.location.href='managementPaciente.php?dni=<?= $_GET['dni'] ?>&action=add'">agregar paciente</button>
                 </div>
 
 
@@ -178,6 +190,7 @@ elseif ($dni != null) :
 
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         </body>
+
         </html>
 <?php
     endif;
