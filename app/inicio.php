@@ -88,7 +88,7 @@ elseif ($dni != null) :
     }
     function buscarHistorial($con, $idPaciente)
     {
-        $historialQuery = "SELECT*FROM historia WHERE idPaciente='$idPaciente'";
+        $historialQuery = "SELECT*FROM historia WHERE idPaciente='$idPaciente' order by dateCreated DESC";
         $historialResult = $con->query($historialQuery);
         if ($historialResult) {
             if (mysqli_num_rows($historialResult) > 0) {

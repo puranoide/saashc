@@ -53,7 +53,8 @@ if (is_null($action) && !is_null($dni)) :
                         <div class="card-body">
                             <form action="../logic/historia.php" method="POST">
                                 <input type="hidden" name="action" value="add">
-                                <input type="hidden" name="dni" value="<?= $paciente['id'] ?>">
+                                <input type="hidden" name="id" value="<?= $paciente['id'] ?>">
+                                <input type="hidden" name="dni" value="<?= $paciente['dni'] ?>">
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Antecendente</label>
                                     
