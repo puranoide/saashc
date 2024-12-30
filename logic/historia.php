@@ -1,8 +1,14 @@
 <?php
 
-function addPatient($con, $id, $receta, $antecedente) {
+function addHistory($con, $id, $receta, $antecedente) {
     $date = date('Y-m-d');
     $sql = "INSERT INTO historia (idPaciente,antecedente,receta,dateCreated) VALUES('$id','$antecedente','$receta','$date')";
+    $result = $con->query($sql);
+    return $result;
+}
+
+function updateHistory($con, $id, $receta, $antecedente) {
+    $sql = "UPDATE historia SET antecedente='$antecedente',receta='$receta' WHERE id='$id'";
     $result = $con->query($sql);
     return $result;
 }
@@ -15,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             # code...
             echo "agregar";
             include_once "../config/db.php";
-            $result = addPatient($con, $_POST['id'], $_POST['receta'], $_POST['antecendente']);
+            $result = addHistory($con, $_POST['id'], $_POST['receta'], $_POST['antecendente']);
             var_dump($result);
             if ($result) {
                 header("Location: ../app/inicio.php?messaje=historia agregadacon exito,paciente: $_POST[dni]");
@@ -27,9 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         case 'update':
             echo "update";
             include_once "../config/db.php";
-            $result = updatePatient($con, $_POST['id'], $_POST['dni'], $_POST['name_and_surname'], $_POST['email']);
+            $result = updateHistory($con, $_POST['id'], $_POST['receta'], $_POST['antecendente']);
+            var_dump($result);
             if ($result) {
-                header("Location: ../app/inicio.php?messaje=paciente actualizado con exito,$_POST[dni]");
+                header("Location: ../app/inicio.php?messaje=paciente actualizado con exito,$_POST[dni],id de la historia: $_POST[id]");
             } else {
                 header("Location: ../app/inicio.php?messaje=error al actualizar paciente");
             }

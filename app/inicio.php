@@ -105,9 +105,10 @@ elseif ($dni != null) :
 
     
     $paciente = buscarPaciente($con, $dni);
-    print_r($paciente);
-    $historias= buscarHistorial($con, $paciente['id']);
+
     if (is_array($paciente)):
+        print_r($paciente);
+        $historias= buscarHistorial($con, $paciente['id']);
     ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -153,10 +154,10 @@ elseif ($dni != null) :
                     <button class="btn btn-primary mt-3" id="agregar" onclick="window.location.href='managementHistoria.php?dni=<?= $paciente['dni'] ?>' ">agregar historia</button>
                 </div>
                 <div class="text-center">
-                    <button class="btn btn-primary mt-3" id="agregar" onclick="window.location.href='managementPaciente.php?dni=<?= $paciente['dni'] ?>&action=update' ">Actualizar cliente</button>
+                    <button class="btn btn-info mt-3" id="agregar" onclick="window.location.href='managementPaciente.php?dni=<?= $paciente['dni'] ?>&action=update' ">Actualizar cliente</button>
                 </div>
 
-                
+                <?php if (is_array($historias)):?>
                <table class="table">
                     <thead>
                         <tr>
@@ -168,7 +169,9 @@ elseif ($dni != null) :
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($historias as $historia) : ?>
+                        <?php 
+                        
+                        foreach ($historias as $historia) : ?>
                             <tr>
                                 <th scope="row"><?= $historia['id'] ?></th>
                                 <td><?= $historia['dateCreated'] ?></td>
@@ -178,9 +181,15 @@ elseif ($dni != null) :
                                     <button class="btn btn-primary" onclick="window.location.href='managementHistoria.php?id=<?= $historia['id'] ?>' ">editar</button>
                                 </td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endforeach;
+                        
+                        ?>
                 </table>
-
+                <?php else:?>
+                    <div class="alert alert-danger mt-5" role="alert">
+                        no se encontraron historias
+                    </div>
+                <?php endif; ?>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         </body>
 
