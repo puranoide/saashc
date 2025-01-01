@@ -11,9 +11,6 @@ $action = isset($_GET['action']) ? $_GET['action'] : null;
 
 
 if ($action == "add" && $action != null) : ?>
-    agregar historia
-    <?= $dni ?>
-
     <!DOCTYPE html>
     <html lang="en">
 
@@ -40,7 +37,7 @@ if ($action == "add" && $action != null) : ?>
                                 <input type="hidden" name="action" value="add">
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">DNI</label>
-                                    <input type="text" name="dni" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $dni ?>" >
+                                    <input type="text" name="dni" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $dni ?>">
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Nombres y apellidos</label>
@@ -50,7 +47,7 @@ if ($action == "add" && $action != null) : ?>
                                     <label for="exampleInputEmail1" class="form-label">Correo</label>
                                     <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                 </div>
-                                <button type="submit" class="btn btn-primary">agregar</button>
+                                <button type="submit" class="btn btn-primary">Registrar</button>
                             </form>
                         </div>
                     </div>
@@ -71,18 +68,19 @@ if ($action == "add" && $action != null) : ?>
 
 
 <?php
-else : 
+else :
 
     include_once "../config/db.php";
-    function getPatient($con,$dni) {
+    function getPatient($con, $dni)
+    {
         $query = "SELECT * FROM paciente WHERE dni = '$dni'";
         $paciente = [];
         $QueryResult = $con->query($query);
-        if($QueryResult->num_rows > 0){
+        if ($QueryResult->num_rows > 0) {
             while ($rowPatiente = $QueryResult->fetch_assoc()) {
                 $paciente[] = $rowPatiente;
             }
-        }else{
+        } else {
             return "No se encontró la tienda";
         }
         return $paciente;
@@ -90,9 +88,9 @@ else :
 
     $paciente = getPatient($con, $dni);
 
-    print_r($paciente);
+
 ?>
-        <!DOCTYPE html>
+    <!DOCTYPE html>
     <html lang="en">
 
     <head>
@@ -111,15 +109,15 @@ else :
                 <div class="col-6 offset-3">
                     <div class="card">
                         <div class="card-header">
-                            Agregar Paciente
+                            Editar Paciente
                         </div>
                         <div class="card-body">
                             <form action="../logic/patient.php" method="POST">
                                 <input type="hidden" name="action" value="update">
-                                <input type="hidden" name="id" value="<?= $paciente[0]['id']?>">
+                                <input type="hidden" name="id" value="<?= $paciente[0]['id'] ?>">
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">DNI</label>
-                                    <input type="text" name="dni" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $paciente[0]['dni'] ?>" >
+                                    <input type="text" name="dni" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $paciente[0]['dni'] ?>">
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Nombres y apellidos</label>

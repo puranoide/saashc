@@ -24,9 +24,8 @@ if (is_null($action) && !is_null($dni)) :
         }
     }
 
-
     $paciente = buscarPaciente($con, $dni);
-    print_r($paciente);
+    
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -119,9 +118,7 @@ else:
     }
     $historia = buscarHistoria($con, $id);
     $paciente = buscarPaciente($con, $historia['idPaciente']);
-    print_r($paciente);
-    echo "<br>";
-    print_r($historia);
+
 
     if (is_array($historia)):?>
     <!DOCTYPE html>
@@ -137,7 +134,7 @@ else:
     <body>
 
         <h1 class="text-center mt-5">Nueva historia</h1>
-        <p class="text-center mt-2"> paciente:<?= $paciente['nombreyapellido'] ?><br> dni:<?= $paciente['dni'] ?> </p>
+        <p class="text-center mt-2"> Paciente:<?= $paciente['nombreyapellido'] ?><br> DNI:<?= $paciente['dni'] ?> </p>
 
         <div class="container mt-5">
             <div class="row">

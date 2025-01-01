@@ -11,7 +11,7 @@ $dni = isset($_GET['dni']) ? $_GET['dni'] : null;
 $message = isset($_GET['messaje']) ? $_GET['messaje'] : null;
 
 if ($dni == null) :
-    print_r($_SESSION);
+
 
 ?>
     <!DOCTYPE html>
@@ -26,15 +26,16 @@ if ($dni == null) :
 
     <body>
 
-        <!--mensaje-->
-
-        <?php if ($message != null) : ?>
-            <div class="alert alert-info w-50 mx-auto" role="alert">
-                <?= $message ?>
+        <?php
+        if ($message != null) : ?>
+            <div class="alert alert-info w-50 mx-auto mt-3" role="alert" id="alerta">
+                <?php echo $message; ?>
             </div>
         <?php endif; ?>
 
-        <h1 class="text-center mt-5"> buscar paciente</h1>
+
+        <h1 class="text-center mt-5">Bienvenido</h1>
+        <h2 class="text-center mt-5"> Buscar paciente</h2>
 
         <div class="container mt-5">
             <div class="row">
@@ -101,14 +102,14 @@ elseif ($dni != null) :
             return "error al conectarse a la base de datos,contacta con soporte";
         }
     }
- 
 
-    
+
+
     $paciente = buscarPaciente($con, $dni);
 
     if (is_array($paciente)):
-        print_r($paciente);
-        $historias= buscarHistorial($con, $paciente['id']);
+
+        $historias = buscarHistorial($con, $paciente['id']);
     ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -122,7 +123,7 @@ elseif ($dni != null) :
 
         <body>
 
-            <h1 class="text-center mt-5">paciente buscado</h1>
+            <h1 class="text-center mt-5">Paciente encontrado</h1>
 
             <div class="container mt-5">
                 <div class="row">
@@ -154,38 +155,38 @@ elseif ($dni != null) :
                     <button class="btn btn-primary mt-3" id="agregar" onclick="window.location.href='managementHistoria.php?dni=<?= $paciente['dni'] ?>' ">agregar historia</button>
                 </div>
                 <div class="text-center">
-                    <button class="btn btn-info mt-3" id="agregar" onclick="window.location.href='managementPaciente.php?dni=<?= $paciente['dni'] ?>&action=update' ">Actualizar cliente</button>
+                    <button class="btn btn-success mt-3" id="agregar" onclick="window.location.href='managementPaciente.php?dni=<?= $paciente['dni'] ?>&action=update' ">Editar Paciente</button>
                 </div>
 
-                <?php if (is_array($historias)):?>
-               <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">fecha</th>
-                            <th scope="col">diagnostico</th>
-                            <th scope="col">tratamiento</th>
-                            <th scope="col">acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php 
-                        
-                        foreach ($historias as $historia) : ?>
-                            <tr>
-                                <th scope="row"><?= $historia['id'] ?></th>
-                                <td><?= $historia['dateCreated'] ?></td>
-                                <td><?= $historia['antecedente'] ?></td>
-                                <td><?= $historia['receta'] ?></td>
-                                <td>
-                                    <button class="btn btn-primary" onclick="window.location.href='managementHistoria.php?id=<?= $historia['id'] ?>' ">editar</button>
-                                </td>
+                <?php if (is_array($historias)): ?>
+                    <table class="table mt-5">
+                        <thead>
+                            <tr class="table-dark">
+                                <th scope="col">id</th>
+                                <th scope="col">fecha</th>
+                                <th scope="col">diagnostico</th>
+                                <th scope="col">tratamiento</th>
+                                <th scope="col">acciones</th>
                             </tr>
-                        <?php endforeach;
-                        
-                        ?>
-                </table>
-                <?php else:?>
+                        </thead>
+                        <tbody>
+                            <?php
+
+                            foreach ($historias as $historia) : ?>
+                                <tr>
+                                    <th scope="row"><?= $historia['id'] ?></th>
+                                    <td><?= $historia['dateCreated'] ?></td>
+                                    <td><?= $historia['antecedente'] ?></td>
+                                    <td><?= $historia['receta'] ?></td>
+                                    <td>
+                                        <button class="btn btn-primary" onclick="window.location.href='managementHistoria.php?id=<?= $historia['id'] ?>' ">editar</button>
+                                    </td>
+                                </tr>
+                            <?php endforeach;
+
+                            ?>
+                    </table>
+                <?php else: ?>
                     <div class="alert alert-danger mt-5" role="alert">
                         no se encontraron historias
                     </div>
@@ -210,7 +211,7 @@ elseif ($dni != null) :
 
         <body>
 
-            <h1 class="text-center mt-5">paciente no encontrado</h1>
+            <h1 class="text-center mt-5">Paciente no encontrado</h1>
 
 
             <div class="container mt-5">
@@ -232,7 +233,7 @@ elseif ($dni != null) :
                 </div>
 
                 <div class="text-center">
-                    <button class="btn btn-primary mt-3" id="agregar" onclick="window.location.href='managementPaciente.php?dni=<?= $_GET['dni'] ?>&action=add'">agregar paciente</button>
+                    <button class="btn btn-primary mt-3" id="agregar" onclick="window.location.href='managementPaciente.php?dni=<?= $_GET['dni'] ?>&action=add'">Registrar paciente</button>
                 </div>
 
 

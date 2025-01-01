@@ -38,7 +38,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         createSessionUser($user);
         header("Location:../app/inicio.php");
     }else{
-        header("Location: ../index.php?messaje=no se pudo iniciar sesion");
+        header("Location: ../index.php?error=no se pudo iniciar sesion");
     }
    
 }

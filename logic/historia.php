@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $result = addHistory($con, $_POST['id'], $_POST['receta'], $_POST['antecendente']);
             var_dump($result);
             if ($result) {
-                header("Location: ../app/inicio.php?messaje=historia agregadacon exito,paciente: $_POST[dni]");
+                header("Location: ../app/inicio.php?messaje=historia agregada con exito,paciente: $_POST[dni]");
             } else {
                 header("Location: ../app/inicio.php?messaje=error al agregar paciente");
             }
